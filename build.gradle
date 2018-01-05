@@ -25,6 +25,7 @@ dependencies {
     play "com.typesafe.play:play-guice_$scalaVersion:$playVersion"
     play "com.typesafe.play:play-logback_$scalaVersion:$playVersion"
     play "com.typesafe.play:filters-helpers_$scalaVersion:$playVersion"
+    play "org.clapper:classutil_$scalaVersion:1.2.0"
 
     playTest "org.scalatestplus.play:scalatestplus-play_$scalaVersion:3.1.2"
 }
