@@ -11,3 +11,6 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 
 # Hello
 GET     /hello/:name                controllers.HomeController.hello(name: String)
+
+# Json
+GET     /json                       controllers.HomeController.json
