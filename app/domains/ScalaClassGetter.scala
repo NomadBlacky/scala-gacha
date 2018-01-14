@@ -1,9 +1,13 @@
 package domains
 
+import java.io.{File => JFile}
 import java.net.{URL, URLClassLoader}
 
-case class ScalaClassGetter(url: URL) {
+import org.clapper.classutil.{ClassFinder, ClassInfo}
 
+case class ScalaClassGetter(files: Seq[JFile]) {
+  val finder = ClassFinder(files)
+  val getClasses: Stream[ClassInfo] = finder.getClasses()
 }
 
 object ScalaClassGetter {

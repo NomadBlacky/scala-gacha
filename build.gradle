@@ -16,6 +16,10 @@ model {
                 twirlTemplates {
                     defaultImports = TwirlImports.SCALA
                 }
+
+                resources {
+                    source.srcDir file('test/resources')
+                }
             }
         }
     }
