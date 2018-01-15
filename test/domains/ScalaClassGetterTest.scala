@@ -17,12 +17,17 @@ class ScalaClassGetterTest extends FunSpec with Matchers {
   }
 
   describe("#getClasses") {
-    it("contains") {
+    it("contains some class informations") {
       val jar = new File(
         getClass.getResource("scala-library-2.12.4.jar").toURI
       )
 
-      ScalaClassGetter(Seq(jar)).getClasses.take(5).foreach(println)
+      val classNames = ScalaClassGetter(Seq(jar)).getClasses.take(3).map(_.name).toList
+      classNames shouldBe List(
+        "scala.AnyVal",
+        "scala.AnyValCompanion",
+        "scala.App"
+      )
     }
   }
 }
