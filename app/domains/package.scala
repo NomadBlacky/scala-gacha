@@ -2,10 +2,15 @@ import org.clapper.classutil.ClassInfo
 
 package object domains {
 
-  implicit class RichClassInfo(classInfo: ClassInfo) {
-    def scalaDocUrl(version: String): String = {
-      val fqn = classInfo.name.replaceAll("\\.", "/")
-      s"https://www.scala-lang.org/api/$version/$fqn.html"
+  trait ScalaDoc {
+    def classFQN: String
+    def scalaDocUrl(scalaVersion: String): String = {
+      val fqn = classFQN.replace('.', '/')
+      s"https://www.scala-lang.org/api/$scalaVersion/$fqn.html"
     }
+  }
+
+  implicit class RichClassInfo(classInfo: ClassInfo) extends ScalaDoc {
+    override def classFQN: String = classInfo.name
   }
 }
