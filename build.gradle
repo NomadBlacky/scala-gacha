@@ -18,7 +18,7 @@ model {
                 }
 
                 resources {
-                    source.srcDir file('test/resources')
+                    source.srcDir file('resources')
                 }
             }
         }
