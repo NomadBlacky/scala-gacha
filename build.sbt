@@ -15,6 +15,8 @@ libraryDependencies ++= Seq(
 
 resourceDirectories in Compile += file("resources")
 
+mappings in Universal += file("Procfile") -> "Procfile"
+
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "org.nomadblacky.controllers._"
 
