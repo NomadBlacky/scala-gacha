@@ -1,10 +1,8 @@
 package controllers
 
-import javax.inject.{Inject, Singleton}
-
 import domains.ScalaClassGetter
+import javax.inject.{Inject, Singleton}
 import org.clapper.classutil.ClassInfo
-import play.api.Play
 import play.api.libs.json.Json
 import play.api.mvc._
 
@@ -18,14 +16,7 @@ class ScalaGachaController @Inject()(cc: ControllerComponents) extends AbstractC
   }
 
   def gacha = Action {
-    val f = Play.routesCompilerMaybeApplication.get.environment.getFile("conf/scala-library-2.12.4.jar")
-    val classes: List[ClassInfo] = {
-      val classGetter = ScalaClassGetter(Seq(
-        f
-      ))
-      Random.shuffle(classGetter.getClasses).toList
-    }
-
+    val classes: List[ClassInfo] = Random.shuffle(ScalaClassGetter.scalaStandardLibrary.getClasses).toList
     val clazz = classes(Random.nextInt(classes.size))
     Ok(Json.toJson(clazz))
   }

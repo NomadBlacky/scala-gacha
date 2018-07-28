@@ -1,1 +1,0 @@
-web: export JAVA_OPTS="$JAVA_OPTS -Dhttp.port=$PORT" && build/stage/playBinary/bin/playBinary
