@@ -15,7 +15,10 @@ libraryDependencies ++= Seq(
 
 resourceDirectories in Compile += file("resources")
 
-mappings in Universal += file("Procfile") -> "Procfile"
+mappings in Universal ++= Seq(
+  file("Procfile") -> "Procfile",
+  file("lib/dd-java-agent-0.11.0.jar") -> "dd-java-agent.jar"
+)
 
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "org.nomadblacky.controllers._"
