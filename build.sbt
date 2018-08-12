@@ -1,9 +1,19 @@
+import com.typesafe.sbt.packager.docker.{Cmd, ExecCmd}
+
 name := """scala-gacha"""
 organization := "org.nomadblacky"
 
 version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+enablePlugins(PlayScala)
+enablePlugins(JavaServerAppPackaging)
+
+dockerBaseImage := "openjdk:8u171-jdk-alpine3.8"
+dockerCommands ++= Seq(
+  Cmd("USER", "root"),
+  ExecCmd("RUN", "apk", "add", "--no-cache", "bash")
+)
+dockerExposedPorts := Seq(9000, 9000)
 
 scalaVersion := "2.12.6"
 
