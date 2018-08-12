@@ -1,9 +1,21 @@
+sudo: required
 language: scala
 scala: 2.12.6
 jdk: openjdk8
 script:
-  - sbt test
+  - sbt test docker:publishLocal
+services:
+  - docker
 cache:
   directories:
   - "$HOME/.ivy2/cache"
   - "$HOME/.sbt/launchers"
+# Ref: https://bhavik.io/2016/08/23/travis-ci-upload-docker-image-to-aws-ecr.html
+after_success:
+  - docker --version  # document the version travis is using
+  - pip install --user awscli
+  - export PATH=$PATH:/$HOME/.local/bin
+  - aws ecr create-repository --repository-name scala-gacha --region ap-northeast-1
+  - eval $(aws ecr get-login --region ap-northeast-1 --no-include-email)
+  - docker tag scala-gacha:$TRAVIS_BUILD_NUMBER $ECR_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/scala-gacha:$TRAVIS_BUILD_NUMBER
+  - docker push $ECR_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/scala-gacha:$TRAVIS_BUILD_NUMBER
