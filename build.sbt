@@ -14,6 +14,7 @@ dockerCommands ++= Seq(
   ExecCmd("RUN", "apk", "add", "--no-cache", "bash")
 )
 dockerExposedPorts := Seq(9000, 9000)
+dockerAlias := dockerAlias.value.copy(tag = sys.env.get("TRAVIS_BUILD_NUMBER").orElse(Some(version.value)))
 
 scalaVersion := "2.12.6"
 
